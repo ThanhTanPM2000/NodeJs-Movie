@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { ToastContainer } from "react-toastify";
-import { Route, Redirect, Switch } from "react-router-dom";
+import { Route, Redirect, Switch, Link } from "react-router-dom";
 import "react-toastify/dist/ReactToastify.css";
 
 import Movies from "./components/movies";
@@ -30,19 +30,20 @@ class App extends Component {
   render() {
     const { user } = this.state;
     return (
-      <React.Fragment>
+      // <React.Fragment>
+      // </React.Fragment>
+
+      <div className="App">
         <ToastContainer />
         <NavBar user={user} />
         <main className="container">
           <Switch>
             <Route path="/register" component={RegisterForm} />
-            <Route path="/login" component={LoginForm} />
             <Route path="/logout" component={Logout} />
+            <Route path="/login" component={LoginForm} />
+
             <ProtectedRoute path="/movies/:id" component={MovieForm} />
-            <Route
-              path="/movies"
-              render={(props) => <Movies {...props} user={user} />}
-            />
+            <ProtectedRoute path="/movies" component="Movies" data={user} />
             <ProtectedRoute path="/customers" component={Customers} />
             <ProtectedRoute path="/rentals" component={Rentals} />
             <Route path="/not-found" component={NotFound} />
@@ -50,7 +51,7 @@ class App extends Component {
             <Redirect to="/not-found" />
           </Switch>
         </main>
-      </React.Fragment>
+      </div>
     );
   }
 }

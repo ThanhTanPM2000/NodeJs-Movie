@@ -78,8 +78,12 @@ class MovieForm extends Form {
 
   render() {
     return (
-      <div>
-        <h1>Movie Form {this.props.match.params.id} </h1>
+      <div className="auth-wrapper auth-inner">
+        {this.state.data.title ? (
+          <h1>Update Movie</h1>
+        ) : (
+          <h1> Create new Movie</h1>
+        )}
         <form onSubmit={this.handleSubmit}>
           {this.renderInput("title", "Title")}
           {this.renderSelect("genreId", "Genre", this.state.genres)}

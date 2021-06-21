@@ -18,8 +18,8 @@ class Movies extends Component {
     currentPage: 1,
     searchQuery: "",
     selectedGenre: { _id: "", name: "All Genres" },
-    pageSize: 4,
-    sortColumn: { path: "title", order: "asc" },
+    pageSize: 6,
+    sortColumn: { path: "name", order: "asc" },
   };
 
   async componentDidMount() {
@@ -116,24 +116,30 @@ class Movies extends Component {
 
     return (
       <div className="row">
-        <div className="col-3">
+        <div className="auth-wrapper col-3">
           <ListGroup
             items={this.state.genres}
             selectedItem={this.state.selectedGenre}
             onItemSelect={this.handleGenreSelect}
           />
         </div>
-        <div className="col">
-          {user && (
-            <Link
-              to="/movies/new"
-              className="btn btn-primary"
-              style={{ marginBottom: 20 }}
-            >
-              New Movie
-            </Link>
-          )}
-          <p>Showing {totalCount} movies in the database.</p>
+        <div className="auth-wrapper auth-inner col" style={{ padding: 20 }}>
+          <div className="row">
+            <div className="col-md">
+              <p>Showing {totalCount} movies in the database.</p>
+            </div>
+            <div className="col-md-3">
+              {user && (
+                <Link
+                  to="/movies/new"
+                  className="btn btn-primary"
+                  style={{ marginBottom: 20 }}
+                >
+                  New Movie
+                </Link>
+              )}
+            </div>
+          </div>
           <SearchBox value={searchQuery} onChange={this.handleSearch} />
           <MoviesTable
             movies={movies}
